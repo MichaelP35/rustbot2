@@ -1,7 +1,6 @@
 import os
-import random
 import discord
-import features.inspire
+import features
 from dotenv import load_dotenv
 
 
@@ -37,8 +36,8 @@ async def on_message(message):
         await message.channel.send('Hello!')
     
     if message.content.startswith('$inspire'):
-        quote = features.inspire.get_quote()
+        quote = features.get_quote()
         await message.channel.send(quote)
-
+    
 
 client.run(TOKEN)
