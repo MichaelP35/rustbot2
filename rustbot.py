@@ -51,7 +51,7 @@ async def inspire(ctx):
     await ctx.send(quote)
 
 
-# Post a random image of a cat
+# Post a random image of a cat from cataas.com
 @bot.command(name='cat')
 async def cat(ctx):
     features.getCatImage()
