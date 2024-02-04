@@ -30,12 +30,12 @@ async def on_ready():
 
 
 # Auto-role upon a member joining the guild
-@bot.event
-async def on_member_join(member):
-    role = "Member"
-    role = discord.utils.get(member.guild.roles, name=role)
-    await member.add_roles(role)
-    print(f'{member} was given the {role} role.')
+# @bot.event
+# async def on_member_join(member):
+#     role = "Member"
+#     role = discord.utils.get(member.guild.roles, name=role)
+#     await member.add_roles(role)
+#     print(f'{member} was given the {role} role.')
 
     
 # Basic "Hello, World" message from the bot
