@@ -1,4 +1,6 @@
 import os
+import random
+import asyncio
 import features
 import discord
 from discord.ext import commands
@@ -58,6 +60,36 @@ async def cat(ctx):
     file = 'cat.jpeg'
     await ctx.send(file=discord.File(file))
     os.remove(file)
+
+
+# Guess the number game where the user
+# need to guess from 1 to 10
+@bot.command(name='guess')
+async def guess(ctx):
+    await ctx.send('Guess a number from 1 to 10!')
+
+    # Ensure that the user who responded the command
+    # is the one who only can answer
+    def check(message):
+        return message.channel == ctx.channel and message.author == ctx.author
+    
+    # Generate a number from 1 to 10
+    number = random.randint(1, 10)
+
+    # Tell the user if they are right or wrong, and stop the command if
+    # they take more than 20 seconds to respond
+    try:
+        guess = await bot.wait_for('message', check=check, timeout=30.0)
+
+        if guess.content.isdigit():
+            user_guess = int(guess.content)
+            if user_guess == number:
+                await ctx.send('Correct!')
+            else:
+                await ctx.send(f'Wrong! Correct number is {number}.')
+    
+    except asyncio.TimeoutError:
+        await ctx.send('Sorry, you took too long.')
 
 
 bot.run(TOKEN)
