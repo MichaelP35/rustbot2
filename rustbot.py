@@ -51,4 +51,13 @@ async def inspire(ctx):
     await ctx.send(quote)
 
 
+# Post a random image of a cat
+@bot.command(name='cat')
+async def cat(ctx):
+    features.getCatImage()
+    file = 'cat.jpeg'
+    await ctx.send(file=discord.File(file))
+    os.remove(file)
+
+
 bot.run(TOKEN)
