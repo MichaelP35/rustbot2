@@ -8,5 +8,5 @@ Bot says "Hello, World!"
 ##### r!inspire
 Bot says a random quote from Zenquotes.io
 
-##### r!cat
-Bot posts a random cat from cataas.com
+##### r!cat 1-9
+Bot posts a random cat from cataas.com up to 9 times
