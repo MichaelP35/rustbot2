@@ -3,5 +3,7 @@ A discord bot that is built using python and the discord.py library. Not intende
 
 #### Commands
 r!hello         Bot says "Hello, World!"
+
 r!inspire       Bot says a random quote from Zenquotes.io
+
 r!cat           Bot posts a random cat from cataas.com
