@@ -1,6 +1,5 @@
 import os
 import random
-import asyncio
 import features
 import discord
 from discord.ext import commands
@@ -87,7 +86,7 @@ async def guess(ctx):
     # Tell the user if they are right or wrong, and stop the command if
     # they take more than 20 seconds to respond
     try:
-        guess = await bot.wait_for('message', check=check, timeout=30.0)
+        guess = await bot.wait_for('message', check=check, timeout=20.0)
 
         if guess.content.isdigit():
             user_guess = int(guess.content)
@@ -96,6 +95,8 @@ async def guess(ctx):
             else:
                 await ctx.send(f'Wrong! Correct number is {number}.')
     
+    # Opted to just use a generic Exception catch
+    # since asyncio.TimeoutError doesn't work
     except Exception:
         await ctx.send('Sorry, you took too long.')
 
