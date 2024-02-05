@@ -55,11 +55,19 @@ async def inspire(ctx):
 
 # Post a random image of a cat from cataas.com
 @bot.command(name='cat')
-async def cat(ctx):
-    features.getCatImage()
-    file = 'cat.jpeg'
-    await ctx.send(file=discord.File(file))
-    os.remove(file)
+async def cat(ctx, num: int=1):
+    # Discord.py uses lists for multiple file uploads in one message
+    cat_images = []
+
+    # Prevents abuse of the command
+    if num > 9:
+        await ctx.send("Can only generate up to 9 images. Command Aborted!")
+    else:
+        features.getCatImage(num)
+        for i in range(num):
+            files = f'images/cat{i}.jpeg'
+            cat_images.append(discord.File(files))
+        await ctx.send(files=cat_images)
 
 
 # Guess the number game where the user
@@ -88,7 +96,7 @@ async def guess(ctx):
             else:
                 await ctx.send(f'Wrong! Correct number is {number}.')
     
-    except asyncio.TimeoutError:
+    except Exception:
         await ctx.send('Sorry, you took too long.')
 
 
