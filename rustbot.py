@@ -101,4 +101,12 @@ async def guess(ctx):
         await ctx.send('Sorry, you took too long.')
 
 
+# Embed Test
+@bot.command(name='embed')
+async def EmbedTest(ctx):
+    embed = discord.Embed(title='Test')
+    await ctx.send(embed=embed)
+
+
+
 bot.run(TOKEN)
