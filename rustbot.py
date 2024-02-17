@@ -30,15 +30,6 @@ async def on_ready():
     print(f'Bot logged in as {bot.user}')
 
 
-# Auto-role upon a member joining the guild
-# @bot.event
-# async def on_member_join(member):
-#     role = "Member"
-#     role = discord.utils.get(member.guild.roles, name=role)
-#     await member.add_roles(role)
-#     print(f'{member} was given the {role} role.')
-
-    
 # Basic "Hello, World" message from the bot
 @bot.command(name='hello')
 async def hello(ctx):
@@ -99,14 +90,6 @@ async def guess(ctx):
     # since asyncio.TimeoutError doesn't work
     except Exception:
         await ctx.send('Sorry, you took too long.')
-
-
-# Embed Test
-@bot.command(name='embed')
-async def EmbedTest(ctx):
-    embed = discord.Embed(title='Test')
-    await ctx.send(embed=embed)
-
 
 
 bot.run(TOKEN)
