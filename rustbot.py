@@ -2,6 +2,9 @@ import os
 import random
 import features
 import discord
+import time
+import datetime
+import re
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -90,6 +93,36 @@ async def guess(ctx):
     # since asyncio.TimeoutError doesn't work
     except Exception:
         await ctx.send('Sorry, you took too long.')
+
+
+#Convert a given date and time to discord's timestyling
+@bot.command(name='time')
+async def convert_time(ctx, *, message: str):
+    # This pattern will look for a date and time in the message
+    date_time_pattern = re.compile(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2})')
+    match = date_time_pattern.search(message)
+    
+    if match:
+        date_str, time_str = match.group().split()
+        try:
+            # Parse the given date and time
+            datetime_obj = datetime.datetime.strptime(f'{date_str} {time_str}', '%Y-%m-%d %H:%M')
+            
+            # Convert to UNIX timestamp
+            timestamp = int(time.mktime(datetime_obj.timetuple()))
+            
+            # Replace the date and time in the message with the Discord timestamp style
+            new_message = date_time_pattern.sub(f'<t:{timestamp}:F>', message)
+            
+            # Send the modified message
+            await ctx.send(new_message)
+        except ValueError:
+            # If the date and time are incorrect or in the wrong format, send an error message
+            await ctx.send('Invalid date or time format in your message. Please use YYYY-MM-DD for date and HH:MM for time.')
+    else:
+        # If no date and time were found in the message
+        await ctx.send('No valid date and time found in your message. Please include a date and time in YYYY-MM-DD HH:MM format.')
+
 
 
 bot.run(TOKEN)
